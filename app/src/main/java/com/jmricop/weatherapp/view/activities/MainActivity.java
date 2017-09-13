@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.jmricop.weatherapp.R;
 import com.jmricop.weatherapp.model.Cities;
@@ -31,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
     @Inject
     MainInteractor.MainPresenter mainPresenter;
 
+    private ProgressBar progressBar;
+    private LinearLayout main_layout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +49,12 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
         // Le dice al presenter cuál es su vista
         mainPresenter.setVista(this);
 
+        main_layout = (LinearLayout) findViewById(R.id.main_layout);
+
         addRecentCitiesFragment(savedInstanceState);
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -53,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
         setupSearchView(menu);
         return true;
     }
+
 
     @Override
     public void showAlert() {
@@ -72,7 +83,8 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
 
     @Override
     public void showProgressDialog() {
-
+        progressBar = getLayoutInflater().inflate(R.layout.progress_bar, main_layout).findViewById(R.id.progressBar_cyclic);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
 
@@ -93,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack so the user can navigate back
-        transaction.replace(R.id.main_layout, newFragment);
+        transaction.replace(R.id.ll_main, newFragment);
         transaction.addToBackStack(null);
 
         // Commit the transaction
@@ -124,11 +136,11 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
         searchView.setOnQueryTextListener(this);
     }
 
-    
+
     private void addRecentCitiesFragment(Bundle savedInstanceState){
         // Check that the activity is using the layout version with
         // the fragment_container FrameLayout
-        if (findViewById(R.id.main_layout) != null) {
+        if (findViewById(R.id.ll_main) != null) {
 
             // However, if we're being restored from a previous state,
             // then we don't need to do anything and should return or else
@@ -141,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
             RecentCitiesFragment recentCitiesFragment = new RecentCitiesFragment();
 
             // Add the fragment to the 'fragment_container' FrameLayout
-            getSupportFragmentManager().beginTransaction().add(R.id.main_layout, recentCitiesFragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.ll_main, recentCitiesFragment).commit();
         }
     }
 }
