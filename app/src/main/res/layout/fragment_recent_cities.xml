@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="com.jmricop.weatherapp.presenter.fragments.RecentCitiesFragment">
+    tools:context="com.jmricop.weatherapp.view.fragments.RecentCitiesFragment">
 
     <ImageView
         android:id="@+id/iv_artists"

@@ -1,4 +1,4 @@
-package com.jmricop.weatherapp.dagger;
+package com.jmricop.weatherapp.module;
 
 import com.jmricop.weatherapp.interactor.MainInteractor;
 import com.jmricop.weatherapp.presenter.MainActivityPresenter;

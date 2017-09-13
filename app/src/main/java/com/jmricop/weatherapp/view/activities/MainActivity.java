@@ -1,33 +1,35 @@
 package com.jmricop.weatherapp.view.activities;
 
-import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
-import android.widget.ProgressBar;
 
 import com.jmricop.weatherapp.R;
-import com.jmricop.weatherapp.dagger.MainModule;
+import com.jmricop.weatherapp.model.Cities;
+import com.jmricop.weatherapp.module.MainModule;
 import com.jmricop.weatherapp.interactor.MainInteractor;
+import com.jmricop.weatherapp.view.fragments.BlankFragment;
 import com.jmricop.weatherapp.view.fragments.RecentCitiesFragment;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import dagger.ObjectGraph;
 
 public class MainActivity extends AppCompatActivity implements MainInteractor.MainView,
-        RecentCitiesFragment.OnFragmentInteractionListener, SearchView.OnQueryTextListener{
+        RecentCitiesFragment.OnFragmentInteractionListener, BlankFragment.OnFragmentInteractionListener,
+        SearchView.OnQueryTextListener{
 
     @Inject
     MainInteractor.MainPresenter mainPresenter;
-
-    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
 
         // Le dice al presenter cuál es su vista
         mainPresenter.setVista(this);
+
+        addRecentCitiesFragment(savedInstanceState);
 
     }
 
@@ -68,23 +72,32 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
 
     @Override
     public void showProgressDialog() {
-//        progressBar.setCancelable(false);
-//        progressBar.setMessage(getResources().getString(R.string.tv_checking_superheros));
-//        progressBar.disk();
+
     }
 
 
     @Override
     public void dismissProgressDialog() {
-//        if(null!=pdChecking && pdChecking.isShowing()) pdChecking.dismiss();
+
     }
 
-    private void setupSearchView(Menu menu) {
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setQueryHint(getString(R.string.search_hint));
-        searchView.setOnQueryTextListener(this);
+    @Override
+    public void addSearchedCitiesFragment(List<Cities.City> citiesList) {
+        // Create fragment and give it an argument specifying the article it should show
+        BlankFragment newFragment = new BlankFragment();
+        Bundle args = new Bundle();
+        args.putString(BlankFragment.ARG_PARAM1, citiesList.get(0).name);
+        newFragment.setArguments(args);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.main_layout, newFragment);
+        transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
     }
 
 
@@ -100,6 +113,36 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
 
     @Override public boolean onQueryTextChange(String newText) {
         return true;
+    }
+
+
+    private void setupSearchView(Menu menu) {
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setQueryHint(getString(R.string.search_hint));
+        searchView.setOnQueryTextListener(this);
+    }
+
+    
+    private void addRecentCitiesFragment(Bundle savedInstanceState){
+        // Check that the activity is using the layout version with
+        // the fragment_container FrameLayout
+        if (findViewById(R.id.main_layout) != null) {
+
+            // However, if we're being restored from a previous state,
+            // then we don't need to do anything and should return or else
+            // we could end up with overlapping fragments.
+            if (savedInstanceState != null) {
+                return;
+            }
+
+            // Create a new Fragment to be placed in the activity layout
+            RecentCitiesFragment recentCitiesFragment = new RecentCitiesFragment();
+
+            // Add the fragment to the 'fragment_container' FrameLayout
+            getSupportFragmentManager().beginTransaction().add(R.id.main_layout, recentCitiesFragment).commit();
+        }
     }
 }
 

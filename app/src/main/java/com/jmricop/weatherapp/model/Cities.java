@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Cities implements Serializable {
 
-    @SerializedName("geonames") public List<City> cityList;
+    @SerializedName("geonames") public List<City> citiesList;
 
     public class City implements Serializable {
 

@@ -35,6 +35,7 @@ public class MainActivityPresenter implements MainInteractor.MainPresenter {
 
                 if(null!=response.body()) {
                     Log.i(getClass().getSimpleName(), "Cities: " + new Gson().toJson(response));
+                    mainView.addSearchedCitiesFragment(response.body().citiesList);
                     //mainView.setSuperherosAdapter(response.body().superheros);
                 }
 
