@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="com.jmricop.weatherapp.presenter.fragments.RecentCitiesFragment">
+
+    <ImageView
+        android:id="@+id/iv_artists"
+        style="@style/AppTheme.ImageView" />
+
+    <TextView
+        android:id="@+id/txt_line_artists"
+        android:text="@string/search_music_hint"
+        android:textSize="@dimen/size_title"
+        style="@style/AppTheme.TextView" />
+
+    <TextView
+        android:id="@+id/txt_subline_artists"
+        android:text="@string/search_artist_hint"
+        android:textSize="@dimen/size_subtitle"
+        style="@style/AppTheme.TextView" />
+
+</LinearLayout>
