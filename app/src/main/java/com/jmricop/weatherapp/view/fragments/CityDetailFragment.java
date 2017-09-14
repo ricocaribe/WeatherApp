@@ -12,6 +12,7 @@ import com.jmricop.weatherapp.R;
 import com.jmricop.weatherapp.model.Cities;
 import com.jmricop.weatherapp.model.Stations;
 
+
 public class CityDetailFragment extends Fragment{
 
     public static final String ARG_CITY = "city";
@@ -19,11 +20,19 @@ public class CityDetailFragment extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        Cities.City city = ((Cities.City) (getArguments().getSerializable(ARG_CITY)));
+
         View view = inflater.inflate(R.layout.fragment_city_detail, container, false);
-        TextView cityDetailName = view.findViewById(R.id.cityDetailName);
-        cityDetailName.setText(((Cities.City) (getArguments().getSerializable(ARG_CITY))).name);
+
+        TextView cityDetailName = view.findViewById(R.id.tvCityDetailName);
+        cityDetailName.setText((city!=null&&city.name!=null)?city.name:"");
+
+        TextView CityDetailCountry = view.findViewById(R.id.tvCityDetailCountry);
+        CityDetailCountry.setText((city!=null&&city.countryName!=null)?city.countryName:"");
         return view;
     }
+
 
     public static CityDetailFragment newInstance(Cities.City city, Stations.Station[] stations) {
         CityDetailFragment fragment = new CityDetailFragment();

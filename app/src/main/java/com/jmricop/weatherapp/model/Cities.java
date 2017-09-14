@@ -14,6 +14,8 @@ public class Cities implements Serializable {
 
         @SerializedName("continentCode") public String continentCode;
 
+        @SerializedName("countryName") public String countryName;
+
         @SerializedName("countryCode") public String countryCode;
 
         @SerializedName("bbox") public Bbox bbox;

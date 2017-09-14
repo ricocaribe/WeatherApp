@@ -8,9 +8,15 @@
     tools:context="com.jmricop.weatherapp.view.fragments.RecentCitiesFragment">
 
     <TextView
-        android:id="@+id/cityDetailName"
+        android:id="@+id/tvCityDetailName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/title_cv"/>
+        style="@style/title_detail"/>
+
+    <TextView
+        android:id="@+id/tvCityDetailCountry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/subtitle_detail"/>
 
 </LinearLayout>
