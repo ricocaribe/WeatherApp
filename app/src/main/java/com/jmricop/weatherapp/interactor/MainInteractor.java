@@ -1,16 +1,17 @@
 package com.jmricop.weatherapp.interactor;
 
-import com.jmricop.weatherapp.model.Cities;
+import android.content.Context;
 
-import java.util.List;
+import com.jmricop.weatherapp.model.Cities;
 
 public interface MainInteractor {
 
     interface MainView {
-        void showAlert();
+        Context getContext();
+        void showAlert(String message);
         void showProgressDialog();
         void dismissProgressDialog();
-        void addSearchedCitiesFragment(List<Cities.City> citiesList);
+        void addSearchedCitiesFragment(Cities.City[] citiesList);
     }
 
     interface MainPresenter {

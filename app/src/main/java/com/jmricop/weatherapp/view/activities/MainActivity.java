@@ -10,15 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.jmricop.weatherapp.R;
 import com.jmricop.weatherapp.model.Cities;
+import com.jmricop.weatherapp.model.Stations;
 import com.jmricop.weatherapp.module.MainModule;
 import com.jmricop.weatherapp.interactor.MainInteractor;
-import com.jmricop.weatherapp.view.fragments.BlankFragment;
+import com.jmricop.weatherapp.view.fragments.CityDetailFragment;
+import com.jmricop.weatherapp.view.fragments.SearchedCitiesFragment;
 import com.jmricop.weatherapp.view.fragments.RecentCitiesFragment;
 
 import java.util.List;
@@ -28,28 +28,24 @@ import javax.inject.Inject;
 import dagger.ObjectGraph;
 
 public class MainActivity extends AppCompatActivity implements MainInteractor.MainView,
-        RecentCitiesFragment.OnFragmentInteractionListener, BlankFragment.OnFragmentInteractionListener,
+        RecentCitiesFragment.OnFragmentInteractionListener, SearchedCitiesFragment.OnFragmentInteractionListener,
         SearchView.OnQueryTextListener{
 
     @Inject
     MainInteractor.MainPresenter mainPresenter;
 
     private ProgressBar progressBar;
-    private LinearLayout main_layout;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Inyecta las clases con Dagger. Esto solo lo tenemos aquí por simplicidad.
+
         ObjectGraph objectGraph = ObjectGraph.create(new MainModule());
         objectGraph.inject(this);
 
-        // Le dice al presenter cuál es su vista
         mainPresenter.setVista(this);
-
-        main_layout = (LinearLayout) findViewById(R.id.main_layout);
 
         addRecentCitiesFragment(savedInstanceState);
 
@@ -66,14 +62,18 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
 
 
     @Override
-    public void showAlert() {
+    public Context getContext() {
+        return getApplicationContext();
+    }
+
+    @Override
+    public void showAlert(String message) {
         AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
         alertDialog.setTitle(getResources().getString(R.string.app_name));
-        alertDialog.setMessage(getResources().getString(R.string.error_something_wrong));
+        alertDialog.setMessage(message);//getResources().getString(R.string.error_something_wrong
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-//                        mainPresenter.getSuperheros();
                         dialog.cancel();
                     }
                 });
@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
 
     @Override
     public void showProgressDialog() {
-        progressBar = getLayoutInflater().inflate(R.layout.progress_bar, main_layout).findViewById(R.id.progressBar_cyclic);
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar = getLayoutInflater().inflate(R.layout.progress_bar, main_layout).findViewById(R.id.progressBar_cyclic);
+//        progressBar.setVisibility(View.VISIBLE);
     }
 
 
@@ -93,22 +93,15 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
 
     }
 
+
     @Override
-    public void addSearchedCitiesFragment(List<Cities.City> citiesList) {
-        // Create fragment and give it an argument specifying the article it should show
-        BlankFragment newFragment = new BlankFragment();
-        Bundle args = new Bundle();
-        args.putString(BlankFragment.ARG_PARAM1, citiesList.get(0).name);
-        newFragment.setArguments(args);
+    public void addSearchedCitiesFragment(Cities.City[] citiesList) {
+
+        SearchedCitiesFragment searchedCitiesFragment = SearchedCitiesFragment.newInstance(citiesList);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack so the user can navigate back
-        transaction.replace(R.id.ll_main, newFragment);
+        transaction.replace(R.id.main_layout, searchedCitiesFragment);
         transaction.addToBackStack(null);
-
-        // Commit the transaction
         transaction.commit();
     }
 
@@ -118,10 +111,12 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
 
     }
 
+
     @Override public boolean onQueryTextSubmit(String query) {
         mainPresenter.searchCity(query);
         return true;
     }
+
 
     @Override public boolean onQueryTextChange(String newText) {
         return true;
@@ -138,23 +133,26 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
 
 
     private void addRecentCitiesFragment(Bundle savedInstanceState){
-        // Check that the activity is using the layout version with
-        // the fragment_container FrameLayout
-        if (findViewById(R.id.ll_main) != null) {
 
-            // However, if we're being restored from a previous state,
-            // then we don't need to do anything and should return or else
-            // we could end up with overlapping fragments.
-            if (savedInstanceState != null) {
-                return;
-            }
+        if (findViewById(R.id.main_layout) != null) {
 
-            // Create a new Fragment to be placed in the activity layout
+            if (savedInstanceState != null) return;
+
             RecentCitiesFragment recentCitiesFragment = new RecentCitiesFragment();
-
-            // Add the fragment to the 'fragment_container' FrameLayout
-            getSupportFragmentManager().beginTransaction().add(R.id.ll_main, recentCitiesFragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.main_layout, recentCitiesFragment).commit();
         }
+    }
+
+
+
+    @Override
+    public void addFragmentCityDetail(Cities.City city, Stations.Station[] stations) {
+        CityDetailFragment cityDetailFragment = CityDetailFragment.newInstance(city, stations);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_layout, cityDetailFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
 

@@ -13,6 +13,6 @@
     <string name="search_artist_hint">Search cities.</string>
 
     <!--Errors-->
-    <string name="error_something_wrong">Something went wrong, try again.</string>
-
+    <string name="error_something_wrong">Something went wrong, try again in a few minutes.</string>
+    <string name="error_no_weather_details">There aren`t weather details in this city.</string>
 </resources>

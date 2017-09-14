@@ -1,6 +1,7 @@
 package com.jmricop.weatherapp.api;
 
 import com.jmricop.weatherapp.model.Cities;
+import com.jmricop.weatherapp.model.Stations;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -8,9 +9,8 @@ import retrofit2.http.Query;
 
 public interface WeatherRetrofitInterface {
 
-    //http://api.geonames.org/searchJSON?q=Madrid&maxRows=20&startRow=0&lang=en&isNameRequired=true&style=FULL&username=ilgeonamessample
-
     String BASE_URL = "http://api.geonames.org/";
+
     @GET("/searchJSON")
     Call<Cities> searchCity(
             @Query(value = "q")String query,
@@ -19,5 +19,13 @@ public interface WeatherRetrofitInterface {
             @Query(value = "lang") String lang,
             @Query(value = "isNameRequired") String isNameRequired,
             @Query(value = "style") String style,
+            @Query(value = "username") String username);
+
+    @GET("/weatherJSON")
+    Call<Stations> searchCityWeatherInfo(
+            @Query(value = "north")double north,
+            @Query(value = "south") double south,
+            @Query(value = "east") double east,
+            @Query(value = "west") double west,
             @Query(value = "username") String username);
 }
