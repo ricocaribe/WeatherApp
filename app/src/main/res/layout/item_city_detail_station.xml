@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:plainpie="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvStationDetailName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/title_cv"/>
+
+        <TextView
+            android:id="@+id/tvStationDetailTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/subtitle_detail"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_temperature"
+                style="@style/subtitle_detail"/>
+
+            <az.plainpie.PieView
+                android:id="@+id/pieStationTemp"
+                android:layout_gravity="center"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                plainpie:inner_pie_padding="30"
+                plainpie:inner_text_visibility="true"
+                plainpie:percentage="72"
+                plainpie:percentage_size="20" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_humidity"
+                style="@style/subtitle_detail"/>
+
+            <az.plainpie.PieView
+                android:id="@+id/pieStationHum"
+                android:layout_gravity="center"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                plainpie:inner_pie_padding="30"
+                plainpie:inner_text_visibility="true"
+                plainpie:percentage="72"
+                plainpie:percentage_size="20" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_observations"
+        style="@style/title_cv"/>
+
+    <TextView
+        android:id="@+id/tvStationObservations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/subtitle_detail"/>
+
+    <TextView
+        android:id="@+id/tvStationClouds"
+        android:drawableStart="@drawable/ic_cloud"
+        android:drawablePadding="@dimen/activity_horizontal_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        style="@style/subtitle_detail"/>
+
+    <TextView
+        android:id="@+id/tvStationWind"
+        android:drawableStart="@drawable/ic_wind"
+        android:drawablePadding="@dimen/activity_horizontal_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        style="@style/subtitle_detail"/>
+
+</LinearLayout>

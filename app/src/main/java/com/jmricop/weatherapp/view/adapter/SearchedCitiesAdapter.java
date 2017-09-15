@@ -67,7 +67,7 @@ public class SearchedCitiesAdapter extends RecyclerView.Adapter<SearchedCitiesAd
                             cities[position].bbox.east,
                             cities[position].bbox.west);
                 }
-                else mListener.showAlert(mListener.getContext().getResources().getString(R.string.error_something_wrong));
+                else mListener.showAlert(mListener.getContext().getResources().getString(R.string.error_no_weather_details));
             }
         });
     }

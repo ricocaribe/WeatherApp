@@ -15,5 +15,20 @@
     <color name="text_secondary_light">#b3ffffff</color>
     <color name="text_disabled_light">#4dffffff</color>
 
+    <color name="color_low_temp01">#8bd8fc</color>
+    <color name="color_low_temp02">#61cbfd</color>
+    <color name="color_low_temp03">#03afff</color>
+    <color name="color_midle_temp01">#fdd58d</color>
+    <color name="color_midle_temp02">#fdc762</color>
+    <color name="color_midle_temp03">#FFA500</color>
+    <color name="color_hight_temp01">#fc8b8b</color>
+    <color name="color_hight_temp02">#ff6363</color>
+    <color name="color_hight_temp03">#FF0000</color>
+
+    <color name="color_hum_01">#8ab7f2</color>
+    <color name="color_hum_02">#6ba0e7</color>
+    <color name="color_hum_03">#5791df</color>
+    <color name="color_hum_04">#397ad2</color>
+    <color name="color_hum_05">#1f64c3</color>
 
 </resources>

@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     android:background="@android:color/holo_red_light"
     tools:context="com.jmricop.weatherapp.view.fragments.RecentCitiesFragment">
 
@@ -18,5 +17,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/subtitle_detail"/>
+
+    <fragment
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:id="@+id/stationsMap"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvCityDetailStations"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
 
 </LinearLayout>
