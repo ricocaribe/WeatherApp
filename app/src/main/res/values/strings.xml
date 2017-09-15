@@ -13,7 +13,6 @@
     <string name="search_artist_hint">Search cities.</string>
 
     <!-- fragment_city_detail.xml -->
-    <string name="tv_observations">Observations</string>
     <string name="tv_temperature">Temperature</string>
     <string name="tv_humidity">Humidity</string>
 

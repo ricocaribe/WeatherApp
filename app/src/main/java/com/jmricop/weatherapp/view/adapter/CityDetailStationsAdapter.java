@@ -12,6 +12,10 @@ import android.widget.TextView;
 import com.jmricop.weatherapp.R;
 import com.jmricop.weatherapp.model.Stations;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import az.plainpie.PieView;
 import az.plainpie.animation.PieAngleAnimation;
 
@@ -32,7 +36,6 @@ public class CityDetailStationsAdapter extends RecyclerView.Adapter<CityDetailSt
         PieView pieStationHum;
         TextView tvStationDetailName;
         TextView tvStationDetailTime;
-        TextView tvStationObservations;
         TextView tvStationClouds;
         TextView tvStationWind;
 
@@ -40,7 +43,6 @@ public class CityDetailStationsAdapter extends RecyclerView.Adapter<CityDetailSt
             super(v);
             tvStationDetailName = v.findViewById(R.id.tvStationDetailName);
             tvStationDetailTime = v.findViewById(R.id.tvStationDetailTime);
-            tvStationObservations = v.findViewById(R.id.tvStationObservations);
             tvStationClouds = v.findViewById(R.id.tvStationClouds);
             tvStationWind = v.findViewById(R.id.tvStationWind);
 
@@ -61,10 +63,20 @@ public class CityDetailStationsAdapter extends RecyclerView.Adapter<CityDetailSt
     public void onBindViewHolder(CityDetailStationsAdapter.ViewHolder holder, final int position) {
 
         holder.tvStationDetailName.setText(stations[position].stationName);
-        holder.tvStationDetailTime.setText(stations[position].datetime);
-        holder.tvStationObservations.setText(stations[position].observation);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+
+        try {
+            date = sdf.parse(stations[position].datetime);
+            sdf = new SimpleDateFormat();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        holder.tvStationDetailTime.setText(sdf.format(date));
         holder.tvStationClouds.setText(stations[position].clouds);
-        holder.tvStationWind.setText(String.format("%dº - %skm/h", stations[position].windDirection, stations[position].windSpeed));
+        holder.tvStationWind.setText(String.format("%skm/h", stations[position].windSpeed));
 
         holder.pieStationTemp.setPercentage(Float.parseFloat(stations[position].temperature));
         holder.pieStationTemp.setPercentageBackgroundColor(getCustomTempBackgroundColour(Integer.parseInt(stations[position].temperature)));

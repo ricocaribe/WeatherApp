@@ -3,25 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/holo_red_light"
     tools:context="com.jmricop.weatherapp.view.fragments.RecentCitiesFragment">
 
-    <TextView
-        android:id="@+id/tvCityDetailName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/title_detail"/>
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin">
 
-    <TextView
-        android:id="@+id/tvCityDetailCountry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/subtitle_detail"/>
+        <TextView
+            android:id="@+id/tvCityDetailName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+        <TextView
+            android:id="@+id/tvCityDetailCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+    </LinearLayout>
+
 
     <fragment
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="220dp"
         android:id="@+id/stationsMap"/>
 
     <android.support.v7.widget.RecyclerView

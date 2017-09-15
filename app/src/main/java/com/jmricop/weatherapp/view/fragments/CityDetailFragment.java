@@ -15,7 +15,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -83,7 +82,7 @@ public class CityDetailFragment extends Fragment implements OnMapReadyCallback{
 
         LatLngBounds bounds = new LatLngBounds(mSouthwest, mNortheast);
 
-        stationsMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+        stationsMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 130));
 
         for (Stations.Station station : stations) {
             String customSnippet = "Temperature: " + station.temperature + "Cº - " + "Humidity: " + String.valueOf(station.humidity) + "%";

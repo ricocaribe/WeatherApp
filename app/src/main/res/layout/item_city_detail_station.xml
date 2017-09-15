@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/background">
+    android:padding="@dimen/activity_horizontal_margin"
+    android:background="@drawable/border">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,100 +16,110 @@
             android:id="@+id/tvStationDetailName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/title_cv"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
         <TextView
             android:id="@+id/tvStationDetailTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/subtitle_detail"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_margin="@dimen/activity_horizontal_margin">
+            android:gravity="bottom">
 
             <TextView
+                android:id="@+id/tvStationClouds"
+                android:drawableStart="@drawable/ic_cloud"
+                android:drawablePadding="@dimen/activity_horizontal_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tv_temperature"
-                style="@style/subtitle_detail"/>
+                android:layout_gravity="top"
+                android:gravity="center"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
-            <az.plainpie.PieView
-                android:id="@+id/pieStationTemp"
-                android:layout_gravity="center"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                plainpie:inner_pie_padding="30"
-                plainpie:inner_text_visibility="true"
-                plainpie:percentage="72"
-                plainpie:percentage_size="20" />
+            <TextView
+                android:id="@+id/tvStationWind"
+                android:drawableStart="@drawable/ic_wind"
+                android:drawablePadding="@dimen/activity_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="@dimen/activity_horizontal_margin">
+            android:orientation="horizontal"
+            android:gravity="end">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tv_humidity"
-                style="@style/subtitle_detail"/>
+                android:orientation="vertical"
+                android:padding="4dp">
 
-            <az.plainpie.PieView
-                android:id="@+id/pieStationHum"
-                android:layout_gravity="center"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                plainpie:inner_pie_padding="30"
-                plainpie:inner_text_visibility="true"
-                plainpie:percentage="72"
-                plainpie:percentage_size="20" />
+                <az.plainpie.PieView
+                    android:id="@+id/pieStationTemp"
+                    android:layout_gravity="center"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    plainpie:inner_pie_padding="22"
+                    plainpie:inner_text_visibility="true"
+                    plainpie:percentage="72"
+                    plainpie:percentage_size="15" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_temperature"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="4dp">
+
+                <az.plainpie.PieView
+                    android:id="@+id/pieStationHum"
+                    android:layout_gravity="center"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    plainpie:inner_pie_padding="22"
+                    plainpie:inner_text_visibility="true"
+                    plainpie:percentage="72"
+                    plainpie:percentage_size="15" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_humidity"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tv_observations"
-        style="@style/title_cv"/>
-
-    <TextView
-        android:id="@+id/tvStationObservations"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/subtitle_detail"/>
-
-    <TextView
-        android:id="@+id/tvStationClouds"
-        android:drawableStart="@drawable/ic_cloud"
-        android:drawablePadding="@dimen/activity_horizontal_margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        style="@style/subtitle_detail"/>
-
-    <TextView
-        android:id="@+id/tvStationWind"
-        android:drawableStart="@drawable/ic_wind"
-        android:drawablePadding="@dimen/activity_horizontal_margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        style="@style/subtitle_detail"/>
 
 </LinearLayout>
