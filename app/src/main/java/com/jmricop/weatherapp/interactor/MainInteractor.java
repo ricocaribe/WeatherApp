@@ -17,5 +17,6 @@ public interface MainInteractor {
     interface MainPresenter {
         void setVista(MainView vista);
         void searchCity(String name);
+        String[] getRecentSearches();
     }
 }

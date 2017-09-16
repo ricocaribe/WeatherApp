@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF5722</color>
 
     <color name="background">#FFF5F5F5</color>
-    <color name="background_black">#45000000</color>
+    <color name="background_dark">#979797</color>
 
     <color name="text_primary_dark">#212121</color>
     <color name="text_secondary_dark">#727272</color>

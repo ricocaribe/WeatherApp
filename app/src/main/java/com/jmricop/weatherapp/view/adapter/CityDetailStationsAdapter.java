@@ -79,7 +79,7 @@ public class CityDetailStationsAdapter extends RecyclerView.Adapter<CityDetailSt
         holder.tvStationWind.setText(String.format("%skm/h", stations[position].windSpeed));
 
         holder.pieStationTemp.setPercentage(Float.parseFloat(stations[position].temperature));
-        holder.pieStationTemp.setPercentageBackgroundColor(getCustomTempBackgroundColour(Integer.parseInt(stations[position].temperature)));
+        holder.pieStationTemp.setPercentageBackgroundColor(getCustomTempBackgroundColour(Float.parseFloat(stations[position].temperature)));
         holder.pieStationTemp.setInnerText(stations[position].temperature);
 
         PieAngleAnimation pieAnimationTemp = new PieAngleAnimation(holder.pieStationTemp);
@@ -108,15 +108,15 @@ public class CityDetailStationsAdapter extends RecyclerView.Adapter<CityDetailSt
     }
 
 
-    private int getCustomTempBackgroundColour(int temperature){
+    private int getCustomTempBackgroundColour(float temperature){
         if(temperature<=5) return ContextCompat.getColor(fragmentActivity, R.color.color_low_temp03);
-        else if (temperature>5 && temperature<=10) return ContextCompat.getColor(fragmentActivity, R.color.color_midle_temp02);
-        else if (temperature>10 && temperature<=15) return ContextCompat.getColor(fragmentActivity, R.color.color_midle_temp01);
+        else if (temperature>5 && temperature<=10) return ContextCompat.getColor(fragmentActivity, R.color.color_low_temp02);
+        else if (temperature>10 && temperature<=15) return ContextCompat.getColor(fragmentActivity, R.color.color_low_temp01);
         else if (temperature>15 && temperature<=20) return ContextCompat.getColor(fragmentActivity, R.color.color_midle_temp01);
         else if (temperature>20 && temperature<=25) return ContextCompat.getColor(fragmentActivity, R.color.color_midle_temp02);
         else if (temperature>25 && temperature<=30) return ContextCompat.getColor(fragmentActivity, R.color.color_midle_temp03);
-        else if (temperature>30 && temperature<=35) return ContextCompat.getColor(fragmentActivity, R.color.color_midle_temp01);
-        else if (temperature>35 && temperature<=40) return ContextCompat.getColor(fragmentActivity, R.color.color_midle_temp02);
+        else if (temperature>30 && temperature<=35) return ContextCompat.getColor(fragmentActivity, R.color.color_hight_temp01);
+        else if (temperature>35 && temperature<=40) return ContextCompat.getColor(fragmentActivity, R.color.color_hight_temp02);
         else return ContextCompat.getColor(fragmentActivity, R.color.color_hight_temp03);
     }
 

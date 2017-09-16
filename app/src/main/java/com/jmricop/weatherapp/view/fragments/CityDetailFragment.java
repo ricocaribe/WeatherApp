@@ -3,7 +3,7 @@ package com.jmricop.weatherapp.view.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,7 +52,7 @@ public class CityDetailFragment extends Fragment implements OnMapReadyCallback{
         RecyclerView rvSearchedCities = view.findViewById(R.id.rvCityDetailStations);
         rvSearchedCities.setHasFixedSize(true);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvSearchedCities.setLayoutManager(layoutManager);
 
         CityDetailStationsAdapter cityDetailStationsAdapter = new CityDetailStationsAdapter(stations, getActivity());

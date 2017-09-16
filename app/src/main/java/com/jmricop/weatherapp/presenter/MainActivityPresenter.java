@@ -1,6 +1,7 @@
 package com.jmricop.weatherapp.presenter;
 
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -10,6 +11,8 @@ import com.jmricop.weatherapp.api.WeatherRetrofitInterface;
 import com.jmricop.weatherapp.interactor.MainInteractor;
 import com.jmricop.weatherapp.model.Cities;
 import com.jmricop.weatherapp.utils.Constants;
+
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +29,8 @@ public class MainActivityPresenter implements MainInteractor.MainPresenter {
 
     @Override
     public void searchCity(String name){
+
+        PreferenceManager.getDefaultSharedPreferences(mainView.getContext()).edit().putString(name, name).apply();
 
         mainView.showProgressDialog();
 
@@ -53,5 +58,23 @@ public class MainActivityPresenter implements MainInteractor.MainPresenter {
                 t.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public String[] getRecentSearches() {
+        Map<String, ?> allEntries = PreferenceManager.getDefaultSharedPreferences(mainView.getContext()).getAll();
+        String[] recentSearches = new String[allEntries.size()];
+        int index = 0;
+
+        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            Log.d("RecentSearchsValues", entry.getValue().toString());
+            if(index<20){
+                recentSearches[index] = entry.getValue().toString();
+                index++;
+            }
+            else break;
+        }
+
+        return recentSearches;
     }
 }

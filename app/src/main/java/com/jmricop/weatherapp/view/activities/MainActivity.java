@@ -3,7 +3,6 @@ package com.jmricop.weatherapp.view.activities;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,24 +17,23 @@ import com.jmricop.weatherapp.model.Stations;
 import com.jmricop.weatherapp.module.MainModule;
 import com.jmricop.weatherapp.interactor.MainInteractor;
 import com.jmricop.weatherapp.view.fragments.CityDetailFragment;
+import com.jmricop.weatherapp.view.fragments.OnFragmentInteractionListener;
 import com.jmricop.weatherapp.view.fragments.SearchedCitiesFragment;
-import com.jmricop.weatherapp.view.fragments.RecentCitiesFragment;
-
-import java.util.List;
+import com.jmricop.weatherapp.view.fragments.RecentSearchFragment;
 
 import javax.inject.Inject;
 
 import dagger.ObjectGraph;
 
 public class MainActivity extends AppCompatActivity implements MainInteractor.MainView,
-        RecentCitiesFragment.OnFragmentInteractionListener, SearchedCitiesFragment.OnFragmentInteractionListener,
-        SearchView.OnQueryTextListener{
+        OnFragmentInteractionListener, SearchView.OnQueryTextListener{
 
     @Inject
     MainInteractor.MainPresenter mainPresenter;
 
     private ProgressBar progressBar;
-
+    private SearchView searchView;
+    private RecentSearchFragment recentCitiesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,25 +105,22 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
 
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-
-    @Override public boolean onQueryTextSubmit(String query) {
+    public boolean onQueryTextSubmit(String query) {
+        searchView.clearFocus();
         mainPresenter.searchCity(query);
         return true;
     }
 
 
-    @Override public boolean onQueryTextChange(String newText) {
+    @Override
+    public boolean onQueryTextChange(String newText) {
         return true;
     }
 
 
     private void setupSearchView(Menu menu) {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setQueryHint(getString(R.string.search_hint));
         searchView.setOnQueryTextListener(this);
@@ -138,8 +133,11 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
 
             if (savedInstanceState != null) return;
 
-            RecentCitiesFragment recentCitiesFragment = new RecentCitiesFragment();
-            getSupportFragmentManager().beginTransaction().add(R.id.main_layout, recentCitiesFragment).commit();
+            recentCitiesFragment = RecentSearchFragment.newInstance(mainPresenter.getRecentSearches());
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.main_layout, recentCitiesFragment);
+            transaction.commit();
         }
     }
 
@@ -153,6 +151,16 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
         transaction.replace(R.id.main_layout, cityDetailFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void searchCityAgain(String search) {
+        onQueryTextSubmit(search);
+    }
+
+    @Override
+    public void refreshSearchedCities() {
+        recentCitiesFragment.refreshCities(mainPresenter.getRecentSearches());
     }
 }
 

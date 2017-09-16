@@ -27,14 +27,9 @@ public class SearchedCitiesFragment extends Fragment implements SearchedCitiesIn
     SearchedCitiesInteractor.SearchedCitiesPresenter searchedCitiesPresenter;
 
     public static final String ARG_CITIES = "cities";
-
     private Cities.City[] citiesParam;
-
     private OnFragmentInteractionListener mListener;
 
-    public SearchedCitiesFragment() {
-        // Required empty public constructor
-    }
 
     public static SearchedCitiesFragment newInstance(Cities.City[] cities) {
         SearchedCitiesFragment fragment = new SearchedCitiesFragment();
@@ -116,12 +111,4 @@ public class SearchedCitiesFragment extends Fragment implements SearchedCitiesIn
         mListener.dismissProgressDialog();
     }
 
-
-    public interface OnFragmentInteractionListener {
-        Context getContext();
-        void showAlert(String message);
-        void showProgressDialog();
-        void dismissProgressDialog();
-        void addFragmentCityDetail(Cities.City city, Stations.Station[] stations);
-    }
 }

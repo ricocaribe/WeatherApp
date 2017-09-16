@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.jmricop.weatherapp.R;
 import com.jmricop.weatherapp.interactor.SearchedCitiesInteractor;
 import com.jmricop.weatherapp.model.Cities;
+import com.jmricop.weatherapp.view.fragments.OnFragmentInteractionListener;
 import com.jmricop.weatherapp.view.fragments.SearchedCitiesFragment;
 
 
@@ -17,10 +18,10 @@ public class SearchedCitiesAdapter extends RecyclerView.Adapter<SearchedCitiesAd
 
     private Cities.City[] cities;
     private SearchedCitiesInteractor.SearchedCitiesPresenter searchedCitiesPresenter;
-    private SearchedCitiesFragment.OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
 
     public SearchedCitiesAdapter(SearchedCitiesInteractor.SearchedCitiesPresenter searchedCitiesPresenter,
-                                 SearchedCitiesFragment.OnFragmentInteractionListener mListener) {
+                                 OnFragmentInteractionListener mListener) {
         this.searchedCitiesPresenter = searchedCitiesPresenter;
         this.mListener = mListener;
     }
