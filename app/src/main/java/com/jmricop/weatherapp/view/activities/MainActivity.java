@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_layout, searchedCitiesFragment);
         transaction.addToBackStack(null);
-        transaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left);
         transaction.commit();
     }
 
@@ -160,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_layout, cityDetailFragment);
         transaction.addToBackStack(null);
-        transaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left);
         transaction.commit();
     }
 

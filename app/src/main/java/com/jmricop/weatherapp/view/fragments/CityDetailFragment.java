@@ -47,28 +47,17 @@ public class CityDetailFragment extends Fragment implements OnMapReadyCallback{
         CityDetailCountry.setText((city!=null&&city.countryName!=null)?city.countryName:"");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.stationsMap);
+        mapFragment.getMapAsync(CityDetailFragment.this);
 
-        if(stations!=null){
+        RecyclerView rvSearchedCities = view.findViewById(R.id.rvCityDetailStations);
+        rvSearchedCities.setHasFixedSize(true);
 
-            mapFragment.getMapAsync(CityDetailFragment.this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        rvSearchedCities.setLayoutManager(layoutManager);
 
-            RecyclerView rvSearchedCities = view.findViewById(R.id.rvCityDetailStations);
-            rvSearchedCities.setVisibility(View.VISIBLE);
-            rvSearchedCities.setHasFixedSize(true);
+        CityDetailStationsAdapter cityDetailStationsAdapter = new CityDetailStationsAdapter(stations, getActivity());
 
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-            rvSearchedCities.setLayoutManager(layoutManager);
-
-            CityDetailStationsAdapter cityDetailStationsAdapter = new CityDetailStationsAdapter(stations, getActivity());
-
-            rvSearchedCities.setAdapter(cityDetailStationsAdapter);
-        }
-        else {
-            getActivity().getSupportFragmentManager().beginTransaction().remove(mapFragment).commit();
-            TextView tvNoData = view.findViewById(R.id.tvNoData);
-            tvNoData.setVisibility(View.VISIBLE);
-
-        }
+        rvSearchedCities.setAdapter(cityDetailStationsAdapter);
 
         return view;
     }

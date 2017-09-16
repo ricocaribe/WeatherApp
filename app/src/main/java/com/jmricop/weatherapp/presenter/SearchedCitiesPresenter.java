@@ -38,17 +38,20 @@ public class SearchedCitiesPresenter implements SearchedCitiesInteractor.Searche
 
                 searchedCitiesFragment.dismissProgressDialog();
 
-                if(null!=response.body()) {
+                if(null!=response.body() && response.body().weatherObservations.length>0) {
                     Log.i(getClass().getSimpleName(), "Stations: " + new Gson().toJson(response));
                     searchedCitiesFragment.searchCityWeatherInfo(city, response.body().weatherObservations);
                 }
+                else searchedCitiesFragment.showAlert(searchedCitiesFragment.getActivity()
+                        .getResources().getString(R.string.error_no_weather_details));
 
             }
 
             @Override
             public void onFailure(Call<Stations> call, Throwable t) {
                 searchedCitiesFragment.dismissProgressDialog();
-                searchedCitiesFragment.showAlert(searchedCitiesFragment.getContext().getResources().getString(R.string.error_something_wrong));
+                searchedCitiesFragment.showAlert(searchedCitiesFragment.getContext().
+                        getResources().getString(R.string.error_something_wrong));
                 call.cancel();
                 t.printStackTrace();
             }

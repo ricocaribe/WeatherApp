@@ -20,7 +20,6 @@
     <!-- fragment_city_detail.xml -->
     <string name="tv_temperature">Temperature</string>
     <string name="tv_humidity">Humidity</string>
-    <string name="tv_no_weather_info">No data enough to show weather information</string>
 
     <!--Errors-->
     <string name="error_something_wrong">Something went wrong, try again in a few minutes.</string>
