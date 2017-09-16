@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jmricop.weatherapp.R;
@@ -50,7 +51,7 @@ public class RecentSearchAdapter extends RecyclerView.Adapter<RecentSearchAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recentCitiesPresenter.searchCityAgain(recentSearches[position]);
+                recentCitiesPresenter.searchCity(recentSearches[position]);
             }
         });
     }

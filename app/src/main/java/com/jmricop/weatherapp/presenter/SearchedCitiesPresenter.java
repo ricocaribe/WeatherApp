@@ -10,7 +10,6 @@ import com.jmricop.weatherapp.interactor.SearchedCitiesInteractor;
 import com.jmricop.weatherapp.model.Cities;
 import com.jmricop.weatherapp.model.Stations;
 import com.jmricop.weatherapp.utils.Constants;
-import com.jmricop.weatherapp.view.fragments.SearchedCitiesFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,43 +17,51 @@ import retrofit2.Response;
 
 public class SearchedCitiesPresenter implements SearchedCitiesInteractor.SearchedCitiesPresenter {
 
-    private SearchedCitiesFragment searchedCitiesFragment;
+    private SearchedCitiesInteractor.SearchedCitiesView searchedCitiesView;
+
 
     @Override
-    public void setVista(SearchedCitiesFragment searchedCitiesFragment) {
-        this.searchedCitiesFragment = searchedCitiesFragment;
+    public void setVista(SearchedCitiesInteractor.SearchedCitiesView searchedCitiesView) {
+        this.searchedCitiesView = searchedCitiesView;
     }
 
 
     @Override
-    public void searchCityWeatherInfo(final Cities.City city, double north, double south, double east, double west){
+    public void searchCityWeatherInfo(final Cities.City city){
 
-        searchedCitiesFragment.showProgressDialog();
+        searchedCitiesView.showProgressDialog();
 
-        WeatherRetrofitClient.searchCityWeatherInfo().create(WeatherRetrofitInterface.class).searchCityWeatherInfo(
-                north, south, east, west, Constants.SEARCH_CITY_DF_USERNAME).enqueue(new Callback<Stations>() {
-            @Override
-            public void onResponse(Call<Stations> call, Response<Stations> response) {
+        if(city.bbox!=null){
+            WeatherRetrofitClient.searchCityWeatherInfo().create(WeatherRetrofitInterface.class).searchCityWeatherInfo(
+                    city.bbox.north, city.bbox.south, city.bbox.east, city.bbox.west, Constants.SEARCH_CITY_DF_USERNAME).enqueue(new Callback<Stations>() {
+                @Override
+                public void onResponse(Call<Stations> call, Response<Stations> response) {
 
-                searchedCitiesFragment.dismissProgressDialog();
+                    searchedCitiesView.dismissProgressDialog();
 
-                if(null!=response.body() && response.body().weatherObservations.length>0) {
-                    Log.i(getClass().getSimpleName(), "Stations: " + new Gson().toJson(response));
-                    searchedCitiesFragment.searchCityWeatherInfo(city, response.body().weatherObservations);
+                    if(null!=response.body() && response.body().weatherObservations.length>0) {
+                        Log.i(getClass().getSimpleName(), "Stations: " + new Gson().toJson(response));
+                        searchedCitiesView.showCity(city, response.body().weatherObservations);
+                    }
+                    else searchedCitiesView.showAlert(searchedCitiesView.getContext()
+                            .getResources().getString(R.string.error_no_weather_details));
+
                 }
-                else searchedCitiesFragment.showAlert(searchedCitiesFragment.getActivity()
-                        .getResources().getString(R.string.error_no_weather_details));
 
-            }
+                @Override
+                public void onFailure(Call<Stations> call, Throwable t) {
+                    searchedCitiesView.dismissProgressDialog();
+                    searchedCitiesView.showAlert(searchedCitiesView.getContext().
+                            getResources().getString(R.string.error_something_wrong));
+                    call.cancel();
+                    t.printStackTrace();
+                }
+            });
+        }
+        else {
+            searchedCitiesView.showAlert(searchedCitiesView.getContext()
+                    .getResources().getString(R.string.error_no_weather_details));
+        }
 
-            @Override
-            public void onFailure(Call<Stations> call, Throwable t) {
-                searchedCitiesFragment.dismissProgressDialog();
-                searchedCitiesFragment.showAlert(searchedCitiesFragment.getContext().
-                        getResources().getString(R.string.error_something_wrong));
-                call.cancel();
-                t.printStackTrace();
-            }
-        });
     }
 }

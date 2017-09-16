@@ -3,7 +3,7 @@ package com.jmricop.weatherapp.interactor;
 import android.content.Context;
 
 import com.jmricop.weatherapp.model.Cities;
-import com.jmricop.weatherapp.view.fragments.SearchedCitiesFragment;
+import com.jmricop.weatherapp.model.Stations;
 
 
 public interface SearchedCitiesInteractor {
@@ -13,11 +13,12 @@ public interface SearchedCitiesInteractor {
         void showAlert(String message);
         void showProgressDialog();
         void dismissProgressDialog();
+        void showCity(Cities.City city, Stations.Station[] stations);
     }
 
 
     interface SearchedCitiesPresenter {
-        void setVista(SearchedCitiesFragment searchedCitiesFragment);
-        void searchCityWeatherInfo(Cities.City city, double north, double south, double east, double west);
+        void setVista(SearchedCitiesInteractor.SearchedCitiesView searchedCitiesView);
+        void searchCityWeatherInfo(Cities.City city);
     }
 }

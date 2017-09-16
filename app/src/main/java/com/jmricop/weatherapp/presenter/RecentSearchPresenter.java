@@ -2,19 +2,18 @@ package com.jmricop.weatherapp.presenter;
 
 import com.jmricop.weatherapp.interactor.RecentSearchInteractor;
 
-import com.jmricop.weatherapp.view.fragments.RecentSearchFragment;
 
 public class RecentSearchPresenter implements RecentSearchInteractor.RecentCitiesPresenter {
 
-    private RecentSearchFragment recentSearchFragment;
+    private RecentSearchInteractor.RecentCitiesView recentCitiesView;
 
     @Override
-    public void setVista(RecentSearchFragment recentSearchFragment) {
-        this.recentSearchFragment = recentSearchFragment;
+    public void setVista(RecentSearchInteractor.RecentCitiesView recentCitiesView) {
+        this.recentCitiesView = recentCitiesView;
     }
 
     @Override
-    public void searchCityAgain(String search) {
-        recentSearchFragment.searchCity(search);
+    public void searchCity(String search) {
+        recentCitiesView.showCity(search);
     }
 }

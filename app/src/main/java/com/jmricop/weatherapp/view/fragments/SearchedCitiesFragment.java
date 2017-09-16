@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jmricop.weatherapp.R;
+import com.jmricop.weatherapp.interactor.MainInteractor;
 import com.jmricop.weatherapp.interactor.SearchedCitiesInteractor;
 import com.jmricop.weatherapp.model.Cities;
 import com.jmricop.weatherapp.model.Stations;
@@ -29,7 +30,7 @@ public class SearchedCitiesFragment extends Fragment implements SearchedCitiesIn
 
     public static final String ARG_CITIES = "cities";
     private Cities.City[] citiesParam;
-    private OnFragmentInteractionListener mListener;
+    private MainInteractor.MainView mainView;
 
 
     public static SearchedCitiesFragment newInstance(Cities.City[] cities) {
@@ -70,7 +71,7 @@ public class SearchedCitiesFragment extends Fragment implements SearchedCitiesIn
             GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
             rvSearchedCities.setLayoutManager(layoutManager);
 
-            SearchedCitiesAdapter searchedCitiesAdapter = new SearchedCitiesAdapter(searchedCitiesPresenter, mListener);
+            SearchedCitiesAdapter searchedCitiesAdapter = new SearchedCitiesAdapter(searchedCitiesPresenter);
             searchedCitiesAdapter.setSearchedCities(citiesParam);
 
             rvSearchedCities.setAdapter(searchedCitiesAdapter);
@@ -88,38 +89,42 @@ public class SearchedCitiesFragment extends Fragment implements SearchedCitiesIn
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof MainInteractor.MainView) {
+            mainView = (MainInteractor.MainView) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
         }
     }
+
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        mainView = null;
     }
 
 
-    public void searchCityWeatherInfo(Cities.City city, Stations.Station[] stations){
-        mListener.addFragmentCityDetail(city, stations);
+    @Override
+    public void showCity(Cities.City city, Stations.Station[] stations){
+        mainView.addFragmentCityDetail(city, stations);
     }
+
 
     @Override
     public void showAlert(String message) {
-        mListener.showAlert(message);
+        mainView.showAlert(message);
     }
+
 
     @Override
     public void showProgressDialog() {
-        mListener.showProgressDialog();
+        mainView.showProgressDialog();
     }
+
 
     @Override
     public void dismissProgressDialog() {
-        mListener.dismissProgressDialog();
+        mainView.dismissProgressDialog();
     }
 
 }

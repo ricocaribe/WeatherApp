@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jmricop.weatherapp.R;
+import com.jmricop.weatherapp.interactor.MainInteractor;
 import com.jmricop.weatherapp.interactor.RecentSearchInteractor;
 import com.jmricop.weatherapp.module.RecentSearchModule;
 import com.jmricop.weatherapp.view.adapter.RecentSearchAdapter;
@@ -18,15 +19,14 @@ import javax.inject.Inject;
 
 import dagger.ObjectGraph;
 
-public class RecentSearchFragment extends Fragment implements RecentSearchInteractor.RecentCitiesView{
+public class RecentSearchFragment extends Fragment implements RecentSearchInteractor.RecentCitiesView {
 
     @Inject
     RecentSearchInteractor.RecentCitiesPresenter recentCitiesPresenter;
 
-
     public static final String ARG_RECENTS = "recentSearches";
     private String[] recentSearches;
-    private OnFragmentInteractionListener mListener;
+    private MainInteractor.MainView mainView;
     private RecentSearchAdapter recentSearchAdapter;
 
     public static RecentSearchFragment newInstance(String[] recentSearches) {
@@ -73,14 +73,14 @@ public class RecentSearchFragment extends Fragment implements RecentSearchIntera
     @Override
     public void onResume() {
         super.onResume();
-        mListener.refreshSearchedCities();
+        mainView.refreshSearchedCities();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof MainInteractor.MainView) {
+            mainView = (MainInteractor.MainView) context;
         } else {
             throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
         }
@@ -89,12 +89,12 @@ public class RecentSearchFragment extends Fragment implements RecentSearchIntera
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        mainView = null;
     }
 
     @Override
-    public void searchCity(String search) {
-        mListener.searchCityAgain(search);
+    public void showCity(String search) {
+        mainView.searchCity(search);
     }
 
     public void refreshCities(String[] cities){

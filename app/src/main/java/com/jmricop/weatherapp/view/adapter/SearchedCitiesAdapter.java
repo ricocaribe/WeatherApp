@@ -10,20 +10,15 @@ import android.widget.TextView;
 import com.jmricop.weatherapp.R;
 import com.jmricop.weatherapp.interactor.SearchedCitiesInteractor;
 import com.jmricop.weatherapp.model.Cities;
-import com.jmricop.weatherapp.view.fragments.OnFragmentInteractionListener;
-import com.jmricop.weatherapp.view.fragments.SearchedCitiesFragment;
 
 
 public class SearchedCitiesAdapter extends RecyclerView.Adapter<SearchedCitiesAdapter.ViewHolder> {
 
     private Cities.City[] cities;
     private SearchedCitiesInteractor.SearchedCitiesPresenter searchedCitiesPresenter;
-    private OnFragmentInteractionListener mListener;
 
-    public SearchedCitiesAdapter(SearchedCitiesInteractor.SearchedCitiesPresenter searchedCitiesPresenter,
-                                 OnFragmentInteractionListener mListener) {
+    public SearchedCitiesAdapter(SearchedCitiesInteractor.SearchedCitiesPresenter searchedCitiesPresenter) {
         this.searchedCitiesPresenter = searchedCitiesPresenter;
-        this.mListener = mListener;
     }
 
 
@@ -61,14 +56,7 @@ public class SearchedCitiesAdapter extends RecyclerView.Adapter<SearchedCitiesAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cities[position].bbox!=null){
-                    searchedCitiesPresenter.searchCityWeatherInfo(cities[position],
-                            cities[position].bbox.north,
-                            cities[position].bbox.south,
-                            cities[position].bbox.east,
-                            cities[position].bbox.west);
-                }
-                else mListener.showAlert(mListener.getContext().getResources().getString(R.string.error_no_weather_details));
+                searchedCitiesPresenter.searchCityWeatherInfo(cities[position]);
             }
         });
     }

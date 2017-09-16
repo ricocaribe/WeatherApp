@@ -1,31 +1,9 @@
 <resources>
 
-    <style name="AppTheme.ProgressBar">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:visibility">gone</item>
-    </style>
-
-    <style name="AppTheme.ImageView">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">@dimen/space_default</item>
-        <item name="android:src">@android:drawable/ic_menu_search</item>
-        <item name="android:visibility">visible</item>
-    </style>
-
-    <style name="title_cv" parent="@style/TextAppearance.AppCompat.Subhead">
+    <style name="cv_title" parent="@style/TextAppearance.AppCompat.Subhead">
         <item name="android:background">@color/background</item>
         <item name="android:padding">@dimen/cv_text_padding</item>
         <item name="android:maxLines">3</item>
-    </style>
-
-    <style name="AppTheme.TextViewBackground">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/text_secondary_dark</item>
     </style>
 
 </resources>

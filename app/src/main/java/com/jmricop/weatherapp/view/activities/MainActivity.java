@@ -14,12 +14,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.jmricop.weatherapp.R;
+import com.jmricop.weatherapp.interactor.RecentSearchInteractor;
+import com.jmricop.weatherapp.interactor.SearchedCitiesInteractor;
 import com.jmricop.weatherapp.model.Cities;
 import com.jmricop.weatherapp.model.Stations;
 import com.jmricop.weatherapp.module.MainModule;
 import com.jmricop.weatherapp.interactor.MainInteractor;
 import com.jmricop.weatherapp.view.fragments.CityDetailFragment;
-import com.jmricop.weatherapp.view.fragments.OnFragmentInteractionListener;
 import com.jmricop.weatherapp.view.fragments.SearchedCitiesFragment;
 import com.jmricop.weatherapp.view.fragments.RecentSearchFragment;
 
@@ -28,7 +29,8 @@ import javax.inject.Inject;
 import dagger.ObjectGraph;
 
 public class MainActivity extends AppCompatActivity implements MainInteractor.MainView,
-        OnFragmentInteractionListener, SearchView.OnQueryTextListener{
+        RecentSearchInteractor.RecentCitiesView, SearchedCitiesInteractor.SearchedCitiesView,
+        SearchView.OnQueryTextListener{
 
     @Inject
     MainInteractor.MainPresenter mainPresenter;
@@ -100,6 +102,11 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
         progressDialog.cancel();
     }
 
+    @Override
+    public void showCity(Cities.City city, Stations.Station[] stations) {
+        addFragmentCityDetail(city, stations);
+    }
+
 
     @Override
     public void addSearchedCitiesFragment(Cities.City[] citiesList) {
@@ -163,13 +170,18 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
     }
 
     @Override
-    public void searchCityAgain(String search) {
+    public void searchCity(String search) {
         onQueryTextSubmit(search);
     }
 
     @Override
     public void refreshSearchedCities() {
         recentCitiesFragment.refreshCities(mainPresenter.getRecentSearches());
+    }
+
+    @Override
+    public void showCity(String city) {
+        searchCity(city);
     }
 }
 

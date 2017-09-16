@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            style="@style/title_cv"/>
+            style="@style/cv_title"/>
 
     </com.jmricop.weatherapp.utils.SquareRelativeLayout>
 
