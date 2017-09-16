@@ -1,6 +1,6 @@
 package com.jmricop.weatherapp.utils;
 
-public class Constants {
+public class DefaultParams {
     public static int SEARCH_CITY_DF_MAXROWS = 20;
     public static int SEARCH_CITY_DF_STARTROW = 0;
     public static String SEARCH_CITY_DF_LANG = "en";

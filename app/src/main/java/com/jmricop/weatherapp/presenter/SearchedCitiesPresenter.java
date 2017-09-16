@@ -9,7 +9,7 @@ import com.jmricop.weatherapp.api.WeatherRetrofitInterface;
 import com.jmricop.weatherapp.interactor.SearchedCitiesInteractor;
 import com.jmricop.weatherapp.model.Cities;
 import com.jmricop.weatherapp.model.Stations;
-import com.jmricop.weatherapp.utils.Constants;
+import com.jmricop.weatherapp.utils.DefaultParams;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +33,7 @@ public class SearchedCitiesPresenter implements SearchedCitiesInteractor.Searche
 
         if(city.bbox!=null){
             WeatherRetrofitClient.searchCityWeatherInfo().create(WeatherRetrofitInterface.class).searchCityWeatherInfo(
-                    city.bbox.north, city.bbox.south, city.bbox.east, city.bbox.west, Constants.SEARCH_CITY_DF_USERNAME).enqueue(new Callback<Stations>() {
+                    city.bbox.north, city.bbox.south, city.bbox.east, city.bbox.west, DefaultParams.SEARCH_CITY_DF_USERNAME).enqueue(new Callback<Stations>() {
                 @Override
                 public void onResponse(Call<Stations> call, Response<Stations> response) {
 

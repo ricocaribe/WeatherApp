@@ -1,7 +1,5 @@
 package com.jmricop.weatherapp.interactor;
 
-import android.content.Context;
-
 
 public interface RecentSearchInteractor {
 

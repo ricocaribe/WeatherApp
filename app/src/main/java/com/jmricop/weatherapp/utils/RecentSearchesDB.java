@@ -21,7 +21,7 @@ public class RecentSearchesDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + SEARCHES_TABLE_NAME + " (id integer primary key, name text)");
+        db.execSQL("create table " + SEARCHES_TABLE_NAME + " (id integer primary key, name text unique)");
     }
 
 

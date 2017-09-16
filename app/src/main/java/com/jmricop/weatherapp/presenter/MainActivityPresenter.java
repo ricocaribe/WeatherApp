@@ -1,7 +1,5 @@
 package com.jmricop.weatherapp.presenter;
 
-
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -10,12 +8,8 @@ import com.jmricop.weatherapp.api.WeatherRetrofitClient;
 import com.jmricop.weatherapp.api.WeatherRetrofitInterface;
 import com.jmricop.weatherapp.interactor.MainInteractor;
 import com.jmricop.weatherapp.model.Cities;
-import com.jmricop.weatherapp.utils.Constants;
+import com.jmricop.weatherapp.utils.DefaultParams;
 import com.jmricop.weatherapp.utils.RecentSearchesDB;
-
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,9 +32,9 @@ public class MainActivityPresenter implements MainInteractor.MainPresenter {
         mainView.showProgressDialog();
 
         WeatherRetrofitClient.searchCity().create(WeatherRetrofitInterface.class).searchCity(name,
-                Constants.SEARCH_CITY_DF_MAXROWS, Constants.SEARCH_CITY_DF_STARTROW,
-                Constants.SEARCH_CITY_DF_LANG, Constants.SEARCH_CITY_DF_NAMEREQUIRED,
-                Constants.SEARCH_CITY_DF_STYLE, Constants.SEARCH_CITY_DF_USERNAME).enqueue(new Callback<Cities>() {
+                DefaultParams.SEARCH_CITY_DF_MAXROWS, DefaultParams.SEARCH_CITY_DF_STARTROW,
+                DefaultParams.SEARCH_CITY_DF_LANG, DefaultParams.SEARCH_CITY_DF_NAMEREQUIRED,
+                DefaultParams.SEARCH_CITY_DF_STYLE, DefaultParams.SEARCH_CITY_DF_USERNAME).enqueue(new Callback<Cities>() {
             @Override
             public void onResponse(Call<Cities> call, Response<Cities> response) {
 
