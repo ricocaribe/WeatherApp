@@ -11,8 +11,11 @@ import com.jmricop.weatherapp.api.WeatherRetrofitInterface;
 import com.jmricop.weatherapp.interactor.MainInteractor;
 import com.jmricop.weatherapp.model.Cities;
 import com.jmricop.weatherapp.utils.Constants;
+import com.jmricop.weatherapp.utils.RecentSearchesDB;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,7 +33,7 @@ public class MainActivityPresenter implements MainInteractor.MainPresenter {
     @Override
     public void searchCity(String name){
 
-        PreferenceManager.getDefaultSharedPreferences(mainView.getContext()).edit().putString(name, String.valueOf(System.currentTimeMillis())).apply();
+        storeCity(name);
 
         mainView.showProgressDialog();
 
@@ -62,19 +65,18 @@ public class MainActivityPresenter implements MainInteractor.MainPresenter {
 
     @Override
     public String[] getRecentSearches() {
-        Map<String, ?> allEntries = PreferenceManager.getDefaultSharedPreferences(mainView.getContext()).getAll();
-        String[] recentSearches = new String[allEntries.size()];
-        int index = 0;
-
-        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-            Log.d("RecentSearchsValues", entry.getKey());
-            if(index<20){
-                recentSearches[index] = entry.getKey();
-                index++;
-            }
-            else break;
-        }
+        String[] recentSearches;
+        RecentSearchesDB sqliteHelper = new RecentSearchesDB(mainView.getContext());
+        recentSearches = sqliteHelper.getRecentSearches();
 
         return recentSearches;
+    }
+
+
+    private void storeCity(String cityname){
+        RecentSearchesDB sqliteHelper = new RecentSearchesDB(mainView.getContext());
+        sqliteHelper.insertSearch(cityname);
+        sqliteHelper.close();
+
     }
 }
