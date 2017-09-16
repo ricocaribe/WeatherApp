@@ -4,10 +4,21 @@
     android:layout_height="match_parent"
     tools:context="com.jmricop.weatherapp.view.fragments.SearchedCitiesFragment">
 
+    <TextView
+        android:id="@+id/tvNoResults"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textColor="@color/background_dark"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:text="@string/tv_no_results"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvSearchedCities"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:visibility="gone"/>
 
 </FrameLayout>

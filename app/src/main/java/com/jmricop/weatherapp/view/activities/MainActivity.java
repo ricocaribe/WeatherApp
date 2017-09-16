@@ -8,8 +8,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.view.LayoutInflater;
 import android.view.Menu;
-import android.widget.ProgressBar;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.jmricop.weatherapp.R;
 import com.jmricop.weatherapp.model.Cities;
@@ -31,9 +33,10 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
     @Inject
     MainInteractor.MainPresenter mainPresenter;
 
-    private ProgressBar progressBar;
     private SearchView searchView;
     private RecentSearchFragment recentCitiesFragment;
+    private AlertDialog progressDialog;
+    private LinearLayout main_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
         ObjectGraph objectGraph = ObjectGraph.create(new MainModule());
         objectGraph.inject(this);
 
+        main_layout = (LinearLayout) findViewById(R.id.main_layout);
         mainPresenter.setVista(this);
 
         addRecentCitiesFragment(savedInstanceState);
@@ -68,7 +72,8 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
     public void showAlert(String message) {
         AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
         alertDialog.setTitle(getResources().getString(R.string.app_name));
-        alertDialog.setMessage(message);//getResources().getString(R.string.error_something_wrong
+        alertDialog.setMessage(message);
+        alertDialog.setCancelable(false);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -81,14 +86,18 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
 
     @Override
     public void showProgressDialog() {
-//        progressBar = getLayoutInflater().inflate(R.layout.progress_bar, main_layout).findViewById(R.id.progressBar_cyclic);
-//        progressBar.setVisibility(View.VISIBLE);
+        progressDialog = new AlertDialog.Builder(MainActivity.this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.progress_bar, null);
+        progressDialog.setCancelable(false);
+        progressDialog.setView(dialogView);
+        progressDialog.show();
     }
 
 
     @Override
     public void dismissProgressDialog() {
-
+        progressDialog.cancel();
     }
 
 
@@ -100,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_layout, searchedCitiesFragment);
         transaction.addToBackStack(null);
+        transaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left);
         transaction.commit();
     }
 
@@ -129,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
 
     private void addRecentCitiesFragment(Bundle savedInstanceState){
 
-        if (findViewById(R.id.main_layout) != null) {
+        if (main_layout != null) {
 
             if (savedInstanceState != null) return;
 
@@ -150,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_layout, cityDetailFragment);
         transaction.addToBackStack(null);
+        transaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left);
         transaction.commit();
     }
 

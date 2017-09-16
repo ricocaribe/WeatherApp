@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.jmricop.weatherapp.R;
 import com.jmricop.weatherapp.interactor.SearchedCitiesInteractor;
@@ -59,16 +60,26 @@ public class SearchedCitiesFragment extends Fragment implements SearchedCitiesIn
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_searched_cities, container, false);
-        RecyclerView rvSearchedCities = view.findViewById(R.id.rvSearchedCities);
-        rvSearchedCities.setHasFixedSize(true);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
-        rvSearchedCities.setLayoutManager(layoutManager);
+        if(citiesParam.length>0){
 
-        SearchedCitiesAdapter searchedCitiesAdapter = new SearchedCitiesAdapter(searchedCitiesPresenter, mListener);
-        searchedCitiesAdapter.setSearchedCities(citiesParam);
+            RecyclerView rvSearchedCities = view.findViewById(R.id.rvSearchedCities);
+            rvSearchedCities.setVisibility(View.VISIBLE);
+            rvSearchedCities.setHasFixedSize(true);
 
-        rvSearchedCities.setAdapter(searchedCitiesAdapter);
+            GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+            rvSearchedCities.setLayoutManager(layoutManager);
+
+            SearchedCitiesAdapter searchedCitiesAdapter = new SearchedCitiesAdapter(searchedCitiesPresenter, mListener);
+            searchedCitiesAdapter.setSearchedCities(citiesParam);
+
+            rvSearchedCities.setAdapter(searchedCitiesAdapter);
+
+        }
+        else {
+            TextView tvNoData = view.findViewById(R.id.tvNoResults);
+            tvNoData.setVisibility(View.VISIBLE);
+        }
 
         return view;
     }

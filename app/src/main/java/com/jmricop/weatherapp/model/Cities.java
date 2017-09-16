@@ -18,6 +18,10 @@ public class Cities implements Serializable {
 
         @SerializedName("countryCode") public String countryCode;
 
+        @SerializedName("lng") public double lng;
+
+        @SerializedName("lat") public double lat;
+
         @SerializedName("bbox") public Bbox bbox;
 
         public class Bbox implements Serializable {
@@ -32,4 +36,6 @@ public class Cities implements Serializable {
 
         }
     }
+
+
 }

@@ -15,7 +15,7 @@
         <item name="android:visibility">visible</item>
     </style>
 
-    <style name="title_cv" parent="@style/TextAppearance.AppCompat.Medium">
+    <style name="title_cv" parent="@style/TextAppearance.AppCompat.Subhead">
         <item name="android:background">@color/background</item>
         <item name="android:padding">@dimen/cv_text_padding</item>
         <item name="android:maxLines">3</item>

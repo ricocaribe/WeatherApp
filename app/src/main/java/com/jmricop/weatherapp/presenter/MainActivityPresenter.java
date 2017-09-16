@@ -30,7 +30,7 @@ public class MainActivityPresenter implements MainInteractor.MainPresenter {
     @Override
     public void searchCity(String name){
 
-        PreferenceManager.getDefaultSharedPreferences(mainView.getContext()).edit().putString(name, name).apply();
+        PreferenceManager.getDefaultSharedPreferences(mainView.getContext()).edit().putString(name, String.valueOf(System.currentTimeMillis())).apply();
 
         mainView.showProgressDialog();
 
@@ -67,9 +67,9 @@ public class MainActivityPresenter implements MainInteractor.MainPresenter {
         int index = 0;
 
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-            Log.d("RecentSearchsValues", entry.getValue().toString());
+            Log.d("RecentSearchsValues", entry.getKey());
             if(index<20){
-                recentSearches[index] = entry.getValue().toString();
+                recentSearches[index] = entry.getKey();
                 index++;
             }
             else break;

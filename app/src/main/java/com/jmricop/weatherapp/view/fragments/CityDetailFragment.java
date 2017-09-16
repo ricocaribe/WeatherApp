@@ -47,17 +47,28 @@ public class CityDetailFragment extends Fragment implements OnMapReadyCallback{
         CityDetailCountry.setText((city!=null&&city.countryName!=null)?city.countryName:"");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.stationsMap);
-        mapFragment.getMapAsync(CityDetailFragment.this);
 
-        RecyclerView rvSearchedCities = view.findViewById(R.id.rvCityDetailStations);
-        rvSearchedCities.setHasFixedSize(true);
+        if(stations!=null){
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        rvSearchedCities.setLayoutManager(layoutManager);
+            mapFragment.getMapAsync(CityDetailFragment.this);
 
-        CityDetailStationsAdapter cityDetailStationsAdapter = new CityDetailStationsAdapter(stations, getActivity());
+            RecyclerView rvSearchedCities = view.findViewById(R.id.rvCityDetailStations);
+            rvSearchedCities.setVisibility(View.VISIBLE);
+            rvSearchedCities.setHasFixedSize(true);
 
-        rvSearchedCities.setAdapter(cityDetailStationsAdapter);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            rvSearchedCities.setLayoutManager(layoutManager);
+
+            CityDetailStationsAdapter cityDetailStationsAdapter = new CityDetailStationsAdapter(stations, getActivity());
+
+            rvSearchedCities.setAdapter(cityDetailStationsAdapter);
+        }
+        else {
+            getActivity().getSupportFragmentManager().beginTransaction().remove(mapFragment).commit();
+            TextView tvNoData = view.findViewById(R.id.tvNoData);
+            tvNoData.setVisibility(View.VISIBLE);
+
+        }
 
         return view;
     }
@@ -77,12 +88,10 @@ public class CityDetailFragment extends Fragment implements OnMapReadyCallback{
 
         stationsMap.getUiSettings().setMapToolbarEnabled(false);
 
-        LatLng mSouthwest = new LatLng(city.bbox.south, city.bbox.west);
-        LatLng mNortheast = new LatLng(city.bbox.north, city.bbox.east);
+        LatLng mSouthwest = new LatLng(city.lat, city.lng);
 
-        LatLngBounds bounds = new LatLngBounds(mSouthwest, mNortheast);
-
-        stationsMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 130));
+        stationsMap.moveCamera(CameraUpdateFactory.newLatLng(mSouthwest));
+        stationsMap.animateCamera(CameraUpdateFactory.zoomTo(8));
 
         for (Stations.Station station : stations) {
             String customSnippet = "Temperature: " + station.temperature + "Cº - " + "Humidity: " + String.valueOf(station.humidity) + "%";

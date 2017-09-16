@@ -76,7 +76,7 @@ public class CityDetailStationsAdapter extends RecyclerView.Adapter<CityDetailSt
 
         holder.tvStationDetailTime.setText(sdf.format(date));
         holder.tvStationClouds.setText(stations[position].clouds);
-        holder.tvStationWind.setText(String.format("%skm/h", stations[position].windSpeed));
+        holder.tvStationWind.setText(String.format("%s km/h", Integer.parseInt(stations[position].windSpeed)));
 
         holder.pieStationTemp.setPercentage(Float.parseFloat(stations[position].temperature));
         holder.pieStationTemp.setPercentageBackgroundColor(getCustomTempBackgroundColour(Float.parseFloat(stations[position].temperature)));
