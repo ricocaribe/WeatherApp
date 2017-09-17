@@ -5,30 +5,21 @@
     <color name="colorAccent">#FF5722</color>
 
     <color name="background">#FFF5F5F5</color>
+    <color name="background_01">#d1d0d0</color>
     <color name="background_dark">#979797</color>
 
     <color name="text_primary_dark">#212121</color>
     <color name="text_secondary_dark">#727272</color>
     <color name="text_tertiary_dark">#61000000</color>
 
-    <color name="text_primary_light">#ffffffff</color>
-    <color name="text_secondary_light">#b3ffffff</color>
-    <color name="text_disabled_light">#4dffffff</color>
+    <color name="cpv_barColor">#1cb2de</color>
+    <color name="cpv_barColor1">#dbc81e</color>
+    <color name="cpv_barColor2">#df7d1c</color>
+    <color name="cpv_barColor3">#db1f1f</color>
 
-    <color name="color_low_temp01">#8bd8fc</color>
-    <color name="color_low_temp02">#61cbfd</color>
-    <color name="color_low_temp03">#03afff</color>
-    <color name="color_midle_temp01">#fdd58d</color>
-    <color name="color_midle_temp02">#fdc762</color>
-    <color name="color_midle_temp03">#FFA500</color>
-    <color name="color_hight_temp01">#fc8b8b</color>
-    <color name="color_hight_temp02">#ff6363</color>
-    <color name="color_hight_temp03">#FF0000</color>
-
-    <color name="color_hum_01">#8ab7f2</color>
-    <color name="color_hum_02">#6ba0e7</color>
-    <color name="color_hum_03">#5791df</color>
-    <color name="color_hum_04">#397ad2</color>
-    <color name="color_hum_05">#1f64c3</color>
+    <color name="color_hum_01">#8de5e6</color>
+    <color name="color_hum_02">#5fc7d3</color>
+    <color name="color_hum_03">#48a3c4</color>
+    <color name="color_hum_04">#2f83be</color>
 
 </resources>

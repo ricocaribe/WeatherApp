@@ -1,8 +1,6 @@
 package com.jmricop.weatherapp.view.adapter;
 
 
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,28 +14,28 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import az.plainpie.PieView;
-import az.plainpie.animation.PieAngleAnimation;
+import at.grabner.circleprogress.CircleProgressView;
+import at.grabner.circleprogress.TextMode;
 
 
 public class CityDetailStationsAdapter extends RecyclerView.Adapter<CityDetailStationsAdapter.ViewHolder> {
 
     private Stations.Station[] stations;
-    private FragmentActivity fragmentActivity;
+    private int gmtOffset;
 
-    public CityDetailStationsAdapter(Stations.Station[] stations, FragmentActivity fragmentActivity) {
+    public CityDetailStationsAdapter(Stations.Station[] stations, int gmtOffset) {
         this.stations = stations;
-        this.fragmentActivity = fragmentActivity;
+        this.gmtOffset = gmtOffset;
     }
 
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        PieView pieStationTemp;
-        PieView pieStationHum;
         TextView tvStationDetailName;
         TextView tvStationDetailTime;
         TextView tvStationClouds;
         TextView tvStationWind;
+        CircleProgressView mCircleViewTemp;
+        CircleProgressView mCircleViewHum;
 
         ViewHolder(View v) {
             super(v);
@@ -45,9 +43,8 @@ public class CityDetailStationsAdapter extends RecyclerView.Adapter<CityDetailSt
             tvStationDetailTime = v.findViewById(R.id.tvStationDetailTime);
             tvStationClouds = v.findViewById(R.id.tvStationClouds);
             tvStationWind = v.findViewById(R.id.tvStationWind);
-
-            pieStationTemp = v.findViewById(R.id.pieStationTemp);
-            pieStationHum = v.findViewById(R.id.pieStationHum);
+            mCircleViewTemp = v.findViewById(R.id.circleViewTemp);
+            mCircleViewHum = v.findViewById(R.id.circleViewHum);
         }
     }
 
@@ -74,25 +71,14 @@ public class CityDetailStationsAdapter extends RecyclerView.Adapter<CityDetailSt
             e.printStackTrace();
         }
 
-        holder.tvStationDetailTime.setText(sdf.format(date));
+        holder.tvStationDetailTime.setText(sdf.format(date) + " GMT " + (gmtOffset>=0?("+" + gmtOffset):gmtOffset));
         holder.tvStationClouds.setText(stations[position].clouds);
         holder.tvStationWind.setText(String.format("%s km/h", Integer.parseInt(stations[position].windSpeed)));
 
-        holder.pieStationTemp.setPercentage(Float.parseFloat(stations[position].temperature));
-        holder.pieStationTemp.setPercentageBackgroundColor(getCustomTempBackgroundColour(Float.parseFloat(stations[position].temperature)));
-        holder.pieStationTemp.setInnerText(stations[position].temperature);
+        holder.mCircleViewTemp.setTextMode(TextMode.VALUE);
+        holder.mCircleViewTemp.setValueAnimated(Integer.parseInt(stations[position].temperature), 3000);
 
-        PieAngleAnimation pieAnimationTemp = new PieAngleAnimation(holder.pieStationTemp);
-        pieAnimationTemp.setDuration(2000);
-        holder.pieStationTemp.startAnimation(pieAnimationTemp);
-
-        holder.pieStationHum.setPercentage(stations[position].humidity);
-        holder.pieStationHum.setPercentageBackgroundColor(getCustomHumBackgroundColour(stations[position].humidity));
-        holder.pieStationHum.setInnerText(String.valueOf(stations[position].humidity));
-
-        PieAngleAnimation pieAnimationHum = new PieAngleAnimation(holder.pieStationHum);
-        pieAnimationHum.setDuration(2000);
-        holder.pieStationHum.startAnimation(pieAnimationHum);
+        holder.mCircleViewHum.setValueAnimated(stations[position].humidity, 3000);
     }
 
 
@@ -107,25 +93,4 @@ public class CityDetailStationsAdapter extends RecyclerView.Adapter<CityDetailSt
         return stations.length;
     }
 
-
-    private int getCustomTempBackgroundColour(float temperature){
-        if(temperature<=5) return ContextCompat.getColor(fragmentActivity, R.color.color_low_temp03);
-        else if (temperature>5 && temperature<=10) return ContextCompat.getColor(fragmentActivity, R.color.color_low_temp02);
-        else if (temperature>10 && temperature<=15) return ContextCompat.getColor(fragmentActivity, R.color.color_low_temp01);
-        else if (temperature>15 && temperature<=20) return ContextCompat.getColor(fragmentActivity, R.color.color_midle_temp01);
-        else if (temperature>20 && temperature<=25) return ContextCompat.getColor(fragmentActivity, R.color.color_midle_temp02);
-        else if (temperature>25 && temperature<=30) return ContextCompat.getColor(fragmentActivity, R.color.color_midle_temp03);
-        else if (temperature>30 && temperature<=35) return ContextCompat.getColor(fragmentActivity, R.color.color_hight_temp01);
-        else if (temperature>35 && temperature<=40) return ContextCompat.getColor(fragmentActivity, R.color.color_hight_temp02);
-        else return ContextCompat.getColor(fragmentActivity, R.color.color_hight_temp03);
-    }
-
-    private int getCustomHumBackgroundColour(int humidity){
-        if(humidity<=15) return ContextCompat.getColor(fragmentActivity, R.color.color_hum_01);
-        else if (humidity>30 && humidity<=50) return ContextCompat.getColor(fragmentActivity, R.color.color_hum_02);
-        else if (humidity>50 && humidity<=70) return ContextCompat.getColor(fragmentActivity, R.color.color_hum_03);
-        else if (humidity>70 && humidity<=85) return ContextCompat.getColor(fragmentActivity, R.color.color_hum_04);
-        else return ContextCompat.getColor(fragmentActivity, R.color.color_hum_05);
-
-    }
 }

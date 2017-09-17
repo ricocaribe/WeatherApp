@@ -24,6 +24,8 @@ public class Cities implements Serializable {
 
         @SerializedName("bbox") public Bbox bbox;
 
+        @SerializedName("timezone") public Timezone timezone;
+
         public class Bbox implements Serializable {
 
             @SerializedName("east") public double east;
@@ -34,6 +36,10 @@ public class Cities implements Serializable {
 
             @SerializedName("west") public double west;
 
+        }
+
+        public class Timezone implements Serializable {
+            @SerializedName("gmtOffset") public int gmtOffset;
         }
     }
 

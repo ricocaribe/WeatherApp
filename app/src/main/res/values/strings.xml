@@ -26,5 +26,6 @@
     <string name="error_no_weather_details">There aren`t weather details in this city.</string>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCWiuvB0YvbtFqumLXFFJFYicigiUe8Z_E</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:plainpie="http://schemas.android.com/apk/res-auto"
+    xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -74,18 +74,28 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:padding="4dp">
 
-                <az.plainpie.PieView
-                    android:id="@+id/pieStationTemp"
-                    android:layout_gravity="center"
+                <at.grabner.circleprogress.CircleProgressView
+                    android:id="@+id/circleViewTemp"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    plainpie:inner_pie_padding="22"
-                    plainpie:inner_text_visibility="true"
-                    plainpie:percentage="72"
-                    plainpie:percentage_size="15" />
+                    CircleProgressView:cpv_autoTextSize="true"
+                    CircleProgressView:cpv_barColor="@color/cpv_barColor"
+                    CircleProgressView:cpv_barColor1="@color/cpv_barColor1"
+                    CircleProgressView:cpv_barColor2="@color/cpv_barColor2"
+                    CircleProgressView:cpv_barColor3="@color/cpv_barColor3"
+                    CircleProgressView:cpv_barWidth="10dp"
+                    CircleProgressView:cpv_innerContourSize="0dp"
+                    CircleProgressView:cpv_maxValue="60"
+                    CircleProgressView:cpv_outerContourSize="0dp"
+                    CircleProgressView:cpv_rimColor="@color/background_01"
+                    CircleProgressView:cpv_rimWidth="10dp"
+                    CircleProgressView:cpv_textColor="@color/colorPrimary"
+                    CircleProgressView:cpv_textScale="1"
+                    CircleProgressView:cpv_value="0" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -98,18 +108,28 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:padding="4dp">
 
-                <az.plainpie.PieView
-                    android:id="@+id/pieStationHum"
-                    android:layout_gravity="center"
+                <at.grabner.circleprogress.CircleProgressView
+                    android:id="@+id/circleViewHum"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    plainpie:inner_pie_padding="22"
-                    plainpie:inner_text_visibility="true"
-                    plainpie:percentage="72"
-                    plainpie:percentage_size="15" />
+                    CircleProgressView:cpv_autoTextSize="true"
+                    CircleProgressView:cpv_barColor="@color/color_hum_01"
+                    CircleProgressView:cpv_barColor1="@color/color_hum_02"
+                    CircleProgressView:cpv_barColor2="@color/color_hum_03"
+                    CircleProgressView:cpv_barColor3="@color/color_hum_04"
+                    CircleProgressView:cpv_barWidth="10dp"
+                    CircleProgressView:cpv_innerContourSize="0dp"
+                    CircleProgressView:cpv_maxValue="100"
+                    CircleProgressView:cpv_outerContourSize="0dp"
+                    CircleProgressView:cpv_rimColor="@color/background_01"
+                    CircleProgressView:cpv_rimWidth="10dp"
+                    CircleProgressView:cpv_textColor="@color/colorPrimary"
+                    CircleProgressView:cpv_textScale="1"
+                    CircleProgressView:cpv_value="0" />
 
                 <TextView
                     android:layout_width="wrap_content"

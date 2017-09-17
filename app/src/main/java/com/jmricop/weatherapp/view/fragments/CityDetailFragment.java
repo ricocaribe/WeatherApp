@@ -54,7 +54,7 @@ public class CityDetailFragment extends Fragment implements OnMapReadyCallback{
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rvSearchedCities.setLayoutManager(layoutManager);
 
-        CityDetailStationsAdapter cityDetailStationsAdapter = new CityDetailStationsAdapter(stations, getActivity());
+        CityDetailStationsAdapter cityDetailStationsAdapter = new CityDetailStationsAdapter(stations, city.timezone.gmtOffset);
 
         rvSearchedCities.setAdapter(cityDetailStationsAdapter);
 
