@@ -37,6 +37,8 @@ public class SearchedCitiesPresenter implements SearchedCitiesInteractor.Searche
                 @Override
                 public void onResponse(Call<Stations> call, Response<Stations> response) {
 
+                    searchedCitiesView.dismissProgressDialog();
+
                     if(null!=response.body() && response.body().weatherObservations.length>0) {
                         Log.i(getClass().getSimpleName(), "Stations: " + new Gson().toJson(response));
                         searchedCitiesView.showCity(city, response.body().weatherObservations);
@@ -44,7 +46,6 @@ public class SearchedCitiesPresenter implements SearchedCitiesInteractor.Searche
                     else searchedCitiesView.showAlert(searchedCitiesView.getContext()
                             .getResources().getString(R.string.error_no_weather_details));
 
-                    searchedCitiesView.dismissProgressDialog();
                 }
 
                 @Override
@@ -58,6 +59,7 @@ public class SearchedCitiesPresenter implements SearchedCitiesInteractor.Searche
             });
         }
         else {
+            searchedCitiesView.dismissProgressDialog();
             searchedCitiesView.showAlert(searchedCitiesView.getContext()
                     .getResources().getString(R.string.error_no_weather_details));
         }
