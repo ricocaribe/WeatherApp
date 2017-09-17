@@ -38,12 +38,12 @@ public class MainActivityPresenter implements MainInteractor.MainPresenter {
             @Override
             public void onResponse(Call<Cities> call, Response<Cities> response) {
 
-                mainView.dismissProgressDialog();
-
                 if(null!=response.body()) {
                     Log.i(getClass().getSimpleName(), "Cities: " + new Gson().toJson(response));
                     mainView.addSearchedCitiesFragment(response.body().citiesList);
                 }
+
+                mainView.dismissProgressDialog();
 
             }
 
