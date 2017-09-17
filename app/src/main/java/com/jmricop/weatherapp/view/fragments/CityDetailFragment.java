@@ -76,10 +76,9 @@ public class CityDetailFragment extends Fragment implements OnMapReadyCallback{
 
         stationsMap.getUiSettings().setMapToolbarEnabled(false);
 
-        LatLng mSouthwest = new LatLng(city.lat, city.lng);
+        LatLng center = new LatLng(city.lat, city.lng);
 
-        stationsMap.moveCamera(CameraUpdateFactory.newLatLng(mSouthwest));
-        stationsMap.animateCamera(CameraUpdateFactory.zoomTo(8));
+        stationsMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 8));
 
         for (Stations.Station station : stations) {
             String customSnippet = "Temperature: " + station.temperature + "Cº - " + "Humidity: " + String.valueOf(station.humidity) + "%";
