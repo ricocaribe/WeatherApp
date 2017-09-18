@@ -76,7 +76,7 @@ public class CityDetailStationsAdapter extends RecyclerView.Adapter<CityDetailSt
         holder.tvStationWind.setText(String.format("%s km/h", Integer.parseInt(stations[position].windSpeed)));
 
         holder.mCircleViewTemp.setTextMode(TextMode.VALUE);
-        holder.mCircleViewTemp.setValueAnimated(Integer.parseInt(stations[position].temperature), 3000);
+        holder.mCircleViewTemp.setValueAnimated(Float.parseFloat(stations[position].temperature), 3000);
 
         holder.mCircleViewHum.setValueAnimated(stations[position].humidity, 3000);
     }
