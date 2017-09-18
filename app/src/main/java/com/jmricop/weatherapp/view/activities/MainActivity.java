@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements MainInteractor.Ma
     @Override
     public boolean onQueryTextSubmit(String query) {
         mainPresenter.searchCity(query);
-        searchView.clearFocus();
+        clearFocus();
         return true;
     }
 

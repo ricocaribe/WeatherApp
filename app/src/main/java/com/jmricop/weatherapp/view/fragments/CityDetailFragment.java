@@ -1,6 +1,7 @@
 package com.jmricop.weatherapp.view.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.jmricop.weatherapp.R;
+import com.jmricop.weatherapp.interactor.MainInteractor;
 import com.jmricop.weatherapp.model.Cities;
 import com.jmricop.weatherapp.model.Stations;
 import com.jmricop.weatherapp.view.adapter.CityDetailStationsAdapter;
@@ -29,6 +31,7 @@ public class CityDetailFragment extends Fragment implements OnMapReadyCallback{
     public static final String ARG_STATIONS = "stations";
     private Stations.Station[] stations;
     private Cities.City city;
+    private MainInteractor.MainView mainView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,6 +61,31 @@ public class CityDetailFragment extends Fragment implements OnMapReadyCallback{
         rvSearchedCities.setAdapter(cityDetailStationsAdapter);
 
         return view;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mainView.clearFocus();
+    }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof MainInteractor.MainView) {
+            mainView = (MainInteractor.MainView) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mainView = null;
     }
 
 
