@@ -82,7 +82,7 @@ public class CityDetailFragment extends Fragment implements OnMapReadyCallback{
 
         for (Stations.Station station : stations) {
             String customSnippet = "Temperature: " + station.temperature + "Cº - " + "Humidity: " + String.valueOf(station.humidity) + "%";
-            Log.i(getClass().getSimpleName(), "CustomSnippet: " + customSnippet);
+
             stationsMap.addMarker(new MarkerOptions()
                     .position(new LatLng(station.lat, station.lng))
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker))

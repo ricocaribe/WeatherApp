@@ -27,7 +27,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            style="@style/cv_title"/>
+            android:background="@color/background"
+            android:padding="@dimen/cv_text_padding"
+            android:maxLines="3"
+            android:ellipsize="end"/>
 
     </com.jmricop.weatherapp.utils.SquareRelativeLayout>
 

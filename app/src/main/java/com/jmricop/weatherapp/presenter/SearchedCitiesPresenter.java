@@ -1,8 +1,6 @@
 package com.jmricop.weatherapp.presenter;
 
-import android.util.Log;
 
-import com.google.gson.Gson;
 import com.jmricop.weatherapp.R;
 import com.jmricop.weatherapp.api.WeatherRetrofitClient;
 import com.jmricop.weatherapp.api.WeatherRetrofitInterface;
@@ -37,14 +35,11 @@ public class SearchedCitiesPresenter implements SearchedCitiesInteractor.Searche
                 @Override
                 public void onResponse(Call<Stations> call, Response<Stations> response) {
 
-                    searchedCitiesView.dismissProgressDialog();
+                    if(null!=response.body() && response.body().weatherObservations.length>0) searchedCitiesView.showCity(city, response.body().weatherObservations);
+                    else searchedCitiesView.showAlert(searchedCitiesView.getContext().
+                            getResources().getString(R.string.error_no_weather_details));
 
-                    if(null!=response.body() && response.body().weatherObservations.length>0) {
-                        Log.i(getClass().getSimpleName(), "Stations: " + new Gson().toJson(response));
-                        searchedCitiesView.showCity(city, response.body().weatherObservations);
-                    }
-                    else searchedCitiesView.showAlert(searchedCitiesView.getContext()
-                            .getResources().getString(R.string.error_no_weather_details));
+                    searchedCitiesView.dismissProgressDialog();
 
                 }
 

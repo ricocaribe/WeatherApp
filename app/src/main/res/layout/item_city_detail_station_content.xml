@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom">
+
+        <TextView
+            android:id="@+id/tvStationClouds"
+            android:drawableStart="@drawable/ic_cloud"
+            android:drawablePadding="@dimen/activity_horizontal_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="start"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+        <TextView
+            android:id="@+id/tvStationWind"
+            android:drawableStart="@drawable/ic_wind"
+            android:drawablePadding="@dimen/activity_horizontal_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="start"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="4dp">
+
+            <at.grabner.circleprogress.CircleProgressView
+                android:id="@+id/circleViewTemp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                CircleProgressView:cpv_autoTextSize="true"
+                CircleProgressView:cpv_barColor="@color/cpv_barColor"
+                CircleProgressView:cpv_barColor1="@color/cpv_barColor1"
+                CircleProgressView:cpv_barColor2="@color/cpv_barColor2"
+                CircleProgressView:cpv_barColor3="@color/cpv_barColor3"
+                CircleProgressView:cpv_barWidth="10dp"
+                CircleProgressView:cpv_innerContourSize="0dp"
+                CircleProgressView:cpv_maxValue="60"
+                CircleProgressView:cpv_outerContourSize="0dp"
+                CircleProgressView:cpv_rimColor="@color/background_01"
+                CircleProgressView:cpv_rimWidth="10dp"
+                CircleProgressView:cpv_textColor="@color/colorPrimary"
+                CircleProgressView:cpv_textScale="1"
+                CircleProgressView:cpv_showUnit="true"
+                CircleProgressView:cpv_unit="°C"
+                CircleProgressView:cpv_unitColor="@color/colorPrimaryDark"
+                CircleProgressView:cpv_unitPosition="right_top"
+                CircleProgressView:cpv_unitScale="1"
+                CircleProgressView:cpv_value="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_temperature"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="4dp">
+
+            <at.grabner.circleprogress.CircleProgressView
+                android:id="@+id/circleViewHum"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                CircleProgressView:cpv_autoTextSize="true"
+                CircleProgressView:cpv_barColor="@color/color_hum_01"
+                CircleProgressView:cpv_barColor1="@color/color_hum_02"
+                CircleProgressView:cpv_barColor2="@color/color_hum_03"
+                CircleProgressView:cpv_barColor3="@color/color_hum_04"
+                CircleProgressView:cpv_barWidth="10dp"
+                CircleProgressView:cpv_innerContourSize="0dp"
+                CircleProgressView:cpv_maxValue="100"
+                CircleProgressView:cpv_outerContourSize="0dp"
+                CircleProgressView:cpv_rimColor="@color/background_01"
+                CircleProgressView:cpv_rimWidth="10dp"
+                CircleProgressView:cpv_textColor="@color/colorPrimary"
+                CircleProgressView:cpv_textScale="1"
+                CircleProgressView:cpv_showUnit="true"
+                CircleProgressView:cpv_unit="%"
+                CircleProgressView:cpv_unitColor="@color/colorPrimaryDark"
+                CircleProgressView:cpv_unitPosition="right_top"
+                CircleProgressView:cpv_unitScale="1"
+                CircleProgressView:cpv_value="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_humidity"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

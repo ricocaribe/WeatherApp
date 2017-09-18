@@ -1,8 +1,6 @@
 package com.jmricop.weatherapp.presenter;
 
-import android.util.Log;
 
-import com.google.gson.Gson;
 import com.jmricop.weatherapp.R;
 import com.jmricop.weatherapp.api.WeatherRetrofitClient;
 import com.jmricop.weatherapp.api.WeatherRetrofitInterface;
@@ -38,12 +36,9 @@ public class MainActivityPresenter implements MainInteractor.MainPresenter {
             @Override
             public void onResponse(Call<Cities> call, Response<Cities> response) {
 
-                mainView.dismissProgressDialog();
+                if(null!=response.body()) mainView.addSearchedCitiesFragment(response.body().citiesList);
 
-                if(null!=response.body()) {
-                    Log.i(getClass().getSimpleName(), "Cities: " + new Gson().toJson(response));
-                    mainView.addSearchedCitiesFragment(response.body().citiesList);
-                }
+                mainView.dismissProgressDialog();
 
             }
 
