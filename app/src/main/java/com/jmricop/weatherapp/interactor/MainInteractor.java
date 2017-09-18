@@ -16,6 +16,7 @@ public interface MainInteractor {
         void addFragmentCityDetail(Cities.City city, Stations.Station[] stations);
         void refreshSearchedCities();
         void searchCity(String search);
+        void clearFocus();
     }
 
     interface MainPresenter {

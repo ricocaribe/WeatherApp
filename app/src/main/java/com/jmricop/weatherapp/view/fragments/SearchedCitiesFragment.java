@@ -87,6 +87,13 @@ public class SearchedCitiesFragment extends Fragment implements SearchedCitiesIn
 
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mainView.clearFocus();
+    }
+
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof MainInteractor.MainView) {
