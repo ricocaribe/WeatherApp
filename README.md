@@ -1,4 +1,4 @@
 # WeatherApp
 Demo app...
 
-![](https://github.com/ricocaribe/WatherApp/blob/master/weatherapp.gif)
+![](https://github.com/ricocaribe/WeatherApp/blob/master/weatherapp.gif)
