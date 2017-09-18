@@ -21,7 +21,7 @@ public class RecentSearchesDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + SEARCHES_TABLE_NAME + " (id integer primary key, name text unique)");
+        db.execSQL("create table " + SEARCHES_TABLE_NAME + " (id integer primary key autoincrement, name text unique)");
     }
 
 
@@ -36,7 +36,7 @@ public class RecentSearchesDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(SEARCH_COLUMN_NAME, name);
-        db.insert(SEARCHES_TABLE_NAME, null, contentValues);
+        db.insertWithOnConflict(SEARCHES_TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
         return true;
     }
 
